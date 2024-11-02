@@ -12,8 +12,8 @@ int firstTime = 0, count_11 = 0;
 bool deviceConnected = false;
 unsigned long connectionTime = 0; // Store time of BLE connection
 // const char *apiEndpoint = "https://dummy.restapiexample.com/api/v1/employee/1"; // Replace with your actual API URL
-const char *apiEndpoint = "https://jsonplaceholder.typicode.com/todos/1";// Dummy API for reference 
-
+const char *apiEndpoint = "https://jsonplaceholder.typicode.com/todos/1";              // Dummy API for reference
+const char *apiEndpoint1 = "https://dummy.restapiexample.com/public/api/v1/update/21"; // Dummy API for reference
 void setup()
 {
     Serial.begin(115200);
@@ -30,7 +30,9 @@ void loop()
             Serial.println("Switching from BLE to WiFi after 15 seconds");
             deinitBLE();     // Deinitialize BLE
             connectToWiFi(); // Switch to WiFi
-            fetchAPIData();  // API fetch testing
+            fetchAPIData();  // API fetch testing((
+            delay(4000);
+            updateStatus(12, "Check");
         }
     }
 }
@@ -88,7 +90,7 @@ void updateStatus(int employeeID, String newStatus)
     if (WiFi.status() == WL_CONNECTED)
     {
         HTTPClient http;
-        http.begin(apiEndpoint); // Specify the API endpoint
+        http.begin(apiEndpoint1); // Specify the API endpoint
 
         // Set content type to JSON
         http.addHeader("Content-Type", "application/json");
